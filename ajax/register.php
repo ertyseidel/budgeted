@@ -24,8 +24,7 @@
 	if($success){
 		echo(json_encode(array("status" => "success", "info" => json_encode($_SESSION['user']))));
 	} else{
-		echo(json_encode(array("status" => "failure", "info" => "Could not create the account!")));
-		//todo have this figure out why it failed.
+		echo(json_encode(array("status" => "failure", "info" => "creation_failure")));
 	}
 
 

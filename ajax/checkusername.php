@@ -18,7 +18,7 @@
 	if($db_check->rowCount() == 0){
 		echo(json_encode(array("status" => "success", "info" => "")));
 	} else{
-		echo(json_encode(array("status" => "failure", "info" => "Username already registered")));
+		echo(json_encode(array("status" => "failure", "info" => "username_already_registered")));
 	}
 
 	db_close();
