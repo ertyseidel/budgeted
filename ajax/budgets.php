@@ -6,9 +6,9 @@ require_once('./db.php');
 
 $db = db_connect();
 
-$db_budgets = $db->prepare("SELECT * FROM budgets WHERE groupid = :groupid AND year = :year");
+$db_budgets = $db->prepare("SELECT * FROM budgets WHERE orgid = :orgid AND year = :year");
 
-$db_budgets->execute(array('groupid' => $_GET['groupid'], 'year' => isset($_GET['year']) ? $_GET['year'] : date('Y')));
+$db_budgets->execute(array('orgid' => $_GET['orgid'], 'year' => isset($_GET['year']) ? $_GET['year'] : date('Y')));
 
 $budgets = $db_budgets->fetchAll(PDO::FETCH_ASSOC);
 

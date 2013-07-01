@@ -9,7 +9,7 @@
 
 	$db = db_connect();
 
-	$db_login = $db->prepare("SELECT * FROM users LEFT JOIN groups_users ON users.id = groups_users.userid LEFT JOIN groups ON groups_users.groupid = groups.id WHERE users.username = :username LIMIT 1");
+	$db_login = $db->prepare("SELECT * FROM users LEFT JOIN orgs_users ON users.id = orgs_users.userid LEFT JOIN orgs ON orgs_users.orgid = orgs.id WHERE users.username = :username LIMIT 1");
 
 	$success = $db_login->execute(array('username' => $_POST['username']));
 
@@ -19,15 +19,15 @@
 		$user = array(
 			'id' => $raw_user[0]['id'],
 			'username' => $raw_user[0]['username'],
-			'groups' => array(),
-			'activeGroup'=> 0 //TODO
+			'orgs' => array(),
+			'activeOrg'=> 0 //TODO
 		);
 
-		foreach($raw_user as $group){
+		foreach($raw_user as $org){
 			$g = array();
-			$g['id'] = $group['id'];
-			$g['groupname'] = $group['groupname'];
-			$user['groups'][] = $g;
+			$g['id'] = $org['id'];
+			$g['orgname'] = $org['orgname'];
+			$user['orgs'][] = $g;
 		}
 
 		if((crypt($_POST['username'] . $_POST['password'], $raw_user[0]['password']) == $raw_user[0]['password'])){

@@ -6,15 +6,15 @@ require_once('./db.php');
 
 $db = db_connect();
 
-$validGroup = false;
-foreach($_SESSION['user']['groups'] as $group){
-	if($group['id'] == $_GET['groupid']) $validGroup = true;
+$validOrg = false;
+foreach($_SESSION['user']['orgs'] as $org){
+	if($org['id'] == $_GET['orgid']) $validOrg = true;
 }
-if(!$validGroup) die(json_encode(array('status'=>'failure', 'info'=>'Invalid group id')));
+if(!$validOrg) die(json_encode(array('status'=>'failure', 'info'=>'Invalid org id')));
 
-$db_expenditures = $db->prepare("SELECT * FROM budgets RIGHT JOIN expenditures ON budgets.id = expenditures.budgetid WHERE budgets.groupid = :groupid AND year = :year");
+$db_expenditures = $db->prepare("SELECT * FROM budgets RIGHT JOIN expenditures ON budgets.id = expenditures.budgetid WHERE budgets.orgid = :orgid AND year = :year");
 
-$db_expenditures->execute(array('groupid' => $_GET['groupid'], 'year' => isset($_GET['year']) ? $_GET['year'] : date('Y')));
+$db_expenditures->execute(array('orgid' => $_GET['orgid'], 'year' => isset($_GET['year']) ? $_GET['year'] : date('Y')));
 
 $expenditures = $db_expenditures->fetchAll(PDO::FETCH_ASSOC);
 

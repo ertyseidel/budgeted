@@ -7,16 +7,16 @@
 
 	$db = db_connect();
 
-	$validGroup = false;
+	$validOrg = false;
 
-	foreach($_SESSION['user']['groups'] as $group){
-		if($_POST['groupid'] == $group['id']) $validGroup = true;
+	foreach($_SESSION['user']['orgs'] as $org){
+		if($_POST['orgid'] == $org['id']) $validOrg = true;
 	}
-	if(!$validGroup) die(json_encode(array('status'=>'failure', 'info'=>'Invalid group id')));
+	if(!$validOrg) die(json_encode(array('status'=>'failure', 'info'=>'Invalid org id')));
 
-	$db_budget = $db->prepare('INSERT INTO budgets (name, groupid, year, amount) VALUES (\'New Budget\', :groupid, ' . date('Y') . ', 0.00)');
+	$db_budget = $db->prepare('INSERT INTO budgets (name, orgid, year, amount) VALUES (\'New Budget\', :orgid, ' . date('Y') . ', 0.00)');
 
-	$success = $db_budget->execute(array('groupid' => $_POST['groupid']));
+	$success = $db_budget->execute(array('orgid' => $_POST['orgid']));
 
 	if($success){
 		echo(json_encode(array('status' => 'success', 'info' => json_encode(array('id' => $db->lastInsertId(), 'name' => 'New Budget', 'amount' => '0.00')))));

@@ -18,7 +18,7 @@
 	$_SESSION['user'] = array(
 		'id' => $db->lastInsertId(),
 		"username" => $_POST['username'],
-		'activeGroup'=> 0
+		'activeOrg'=> 0
 	);
 
 	if($success){

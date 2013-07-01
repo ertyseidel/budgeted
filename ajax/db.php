@@ -3,7 +3,7 @@
 	function db_connect(){
 		global $__db;
 		if(isset($__db) && $__db) return $__db;
-		$__db = new PDO("mysql:host=localhost;dbname=lufinance", "lufinance", "xT3Msjh4SNWc3Jrm");
+		$__db = new PDO("mysql:host=localhost;dbname=budgeted", "budgeted", "xT3Msjh4SNWc3Jrm");
 		return $__db;
 	}
 

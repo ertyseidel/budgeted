@@ -7,15 +7,15 @@
 
 	$db = db_connect();
 
-	$db_groupid = $db->prepare('SELECT groupid FROM budgets WHERE id = :budgetid');
-	$db_groupid->execute(array('budgetid' => $_POST['budgetid']));
-	$groupid = $db_groupid->fetch(PDO::FETCH_ASSOC)['groupid'];
+	$db_orgid = $db->prepare('SELECT orgid FROM budgets WHERE id = :budgetid');
+	$db_orgid->execute(array('budgetid' => $_POST['budgetid']));
+	$orgid = $db_orgid->fetch(PDO::FETCH_ASSOC)['orgid'];
 
-	$validGroup = false;
-	foreach($_SESSION['user']['groups'] as $group){
-		if($groupid == $group['id']) $validGroup = true;
+	$validOrg = false;
+	foreach($_SESSION['user']['orgs'] as $org){
+		if($orgid == $org['id']) $validOrg = true;
 	}
-	if(!$validGroup) die(json_encode(array('status'=>'failure', 'info'=>'Invalid group id')));
+	if(!$validOrg) die(json_encode(array('status'=>'failure', 'info'=>'Invalid org id')));
 	if(!isset($_POST['budgetname'])) die(json_encode(array('status'=> 'failure', 'info'=>'No budget name set.')));
 	if(!isset($_POST['budgetamount'])) die(json_encode(array('status'=> 'failure', 'info'=>'No budget amount set.')));
 	if(!is_numeric($_POST['budgetamount'])) die(json_encode(array('status'=> 'failure', 'info'=> 'Non-numeric budget amount')));
